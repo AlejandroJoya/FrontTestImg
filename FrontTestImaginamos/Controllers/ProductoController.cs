@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FrontTestImaginamos.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FrontTestImaginamos.Controllers
@@ -24,12 +22,18 @@ namespace FrontTestImaginamos.Controllers
 
         // POST: Producto/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Producto producto)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
 
+                webService.AgregarProducto(producto.NombreProducto, producto.Precio, producto.Cantidad);
+                
+                // TODO: Add insert logic here
                 return RedirectToAction("Index");
             }
             catch
