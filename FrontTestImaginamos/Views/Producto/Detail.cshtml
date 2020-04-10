@@ -1,0 +1,37 @@
+﻿@model FrontTestImaginamos.Models.Producto
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle de producto</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.NombreProducto)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.Id);
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar al carrito" class="btn btn-default" />
+            </div>
+        </div>
+
+    }
+    @*@Html.ActionLink("Agregar al carrito", "Create", new { id = @Model.Id })*@
+</div>
+
+    <p>
+        @Html.ActionLink("Regresar a la lista", "Index")
+    </p>
