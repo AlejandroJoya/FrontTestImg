@@ -1,4 +1,5 @@
 ﻿using FrontTestImaginamos.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -39,6 +40,34 @@ namespace FrontTestImaginamos.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Detail(long id)
+        {
+            try
+            {
+                var producto = webService.ConsultarProducto(id);
+                return View(new Producto(producto));
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }            
+        }
+
+        [HttpPost]
+        public ActionResult Detail(Producto producto)
+        {
+            try
+            {
+                webService.AgregarProductoCarrito(1, producto.Id);
+                return RedirectToAction("Index", "Producto");
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

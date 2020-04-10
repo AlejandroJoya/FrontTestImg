@@ -6,12 +6,12 @@ namespace FrontTestImaginamos.Models
     {
         public long Id { get; set; }
 
-        [Required(ErrorMessage = "Ingrese precio")]        
+        [Required(ErrorMessage = "Ingrese precio")]
         [Range(0, int.MaxValue, ErrorMessage = "Se permite un número hasta 10 dígitos")]
         [DataType(DataType.Currency)]
         public decimal Precio { get; set; }
 
-        [Required(ErrorMessage = "Ingrese cantidad")]        
+        [Required(ErrorMessage = "Ingrese cantidad")]
         [Range(0, int.MaxValue, ErrorMessage = "Se permite un número hasta 7 dígitos")]
         public int Cantidad { get; set; }
 
@@ -19,5 +19,15 @@ namespace FrontTestImaginamos.Models
         [Required(ErrorMessage = "Ingrese nombre de producto")]
         [StringLength(50, ErrorMessage = "El nombre no debe superar los 50 caracteres")]
         public string NombreProducto { get; set; }
+
+        public Producto() { }
+
+        public Producto(BackWebServices.ProductoEntity productoEntidad)
+        {
+            Id = productoEntidad.Id;
+            Precio = productoEntidad.Precio;
+            NombreProducto = productoEntidad.NombreProducto;
+            Cantidad = productoEntidad.Cantidad;
+        }
     }
 }

@@ -39,6 +39,8 @@ namespace FrontTestImaginamos.BackWebServices {
         
         private System.Threading.SendOrPostCallback AgregarProductoOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ConsultarProductoOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -91,6 +93,9 @@ namespace FrontTestImaginamos.BackWebServices {
         
         /// <remarks/>
         public event AgregarProductoCompletedEventHandler AgregarProductoCompleted;
+        
+        /// <remarks/>
+        public event ConsultarProductoCompletedEventHandler ConsultarProductoCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Login", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -248,6 +253,35 @@ namespace FrontTestImaginamos.BackWebServices {
             if ((this.AgregarProductoCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.AgregarProductoCompleted(this, new AgregarProductoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ConsultarProducto", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ProductoEntity ConsultarProducto(long id) {
+            object[] results = this.Invoke("ConsultarProducto", new object[] {
+                        id});
+            return ((ProductoEntity)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultarProductoAsync(long id) {
+            this.ConsultarProductoAsync(id, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultarProductoAsync(long id, object userState) {
+            if ((this.ConsultarProductoOperationCompleted == null)) {
+                this.ConsultarProductoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultarProductoOperationCompleted);
+            }
+            this.InvokeAsync("ConsultarProducto", new object[] {
+                        id}, this.ConsultarProductoOperationCompleted, userState);
+        }
+        
+        private void OnConsultarProductoOperationCompleted(object arg) {
+            if ((this.ConsultarProductoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultarProductoCompleted(this, new ConsultarProductoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -453,6 +487,32 @@ namespace FrontTestImaginamos.BackWebServices {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void ConsultarProductoCompletedEventHandler(object sender, ConsultarProductoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultarProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultarProductoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ProductoEntity Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ProductoEntity)(this.results[0]));
             }
         }
     }

@@ -89,6 +89,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ConsultarProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarProductoResult" type="tns:ProductoEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="LoginSoapIn">
@@ -121,6 +135,12 @@
   <wsdl:message name="AgregarProductoSoapOut">
     <wsdl:part name="parameters" element="tns:AgregarProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="ConsultarProductoSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarProducto" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarProductoSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarProductoResponse" />
+  </wsdl:message>
   <wsdl:portType name="MainWebServiceSoap">
     <wsdl:operation name="Login">
       <wsdl:input message="tns:LoginSoapIn" />
@@ -141,6 +161,10 @@
     <wsdl:operation name="AgregarProducto">
       <wsdl:input message="tns:AgregarProductoSoapIn" />
       <wsdl:output message="tns:AgregarProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarProducto">
+      <wsdl:input message="tns:ConsultarProductoSoapIn" />
+      <wsdl:output message="tns:ConsultarProductoSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="MainWebServiceSoap" type="tns:MainWebServiceSoap">
@@ -190,6 +214,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConsultarProducto">
+      <soap:operation soapAction="http://tempuri.org/ConsultarProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="MainWebServiceSoap12" type="tns:MainWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -231,6 +264,15 @@
     </wsdl:operation>
     <wsdl:operation name="AgregarProducto">
       <soap12:operation soapAction="http://tempuri.org/AgregarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarProducto">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarProducto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
