@@ -9,7 +9,13 @@ namespace FrontTestImaginamos.Controllers
         // GET: Carrito
         public ActionResult Index()
         {
-            var listaCarrito = webService.ListarCarrito(1).ToList();
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var usuario = (BackWebServices.UsuarioEntity)Session["usuario"];
+            var listaCarrito = webService.ListarCarrito(usuario.Id).ToList();
             return View(listaCarrito);
         }
     }

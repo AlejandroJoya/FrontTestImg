@@ -170,6 +170,9 @@
     <Content Include="Web References\BackWebServices\TransaccionEntity.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
+    <Content Include="Web References\BackWebServices\UsuarioEntity.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,20 +6,25 @@
 }
 
 <h2>Productos en carrito</h2>
+@Html.ActionLink("Ir a Productos", "Index", "Producto")
+
+<br />
+<br />
 
 <table class="table">
-    <tr>        
+    <tr>
         <th>
             Producto
-        </th>        
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>        
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreProducto)
-        </td>        
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProducto)
+            </td>
+        </tr>
+    }
 
 </table>

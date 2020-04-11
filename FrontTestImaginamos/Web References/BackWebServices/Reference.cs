@@ -104,25 +104,25 @@ namespace FrontTestImaginamos.BackWebServices {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Login", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool Login(string usuario, string contrasena) {
+        public UsuarioEntity Login(string nombreUsuario, string contrasena) {
             object[] results = this.Invoke("Login", new object[] {
-                        usuario,
+                        nombreUsuario,
                         contrasena});
-            return ((bool)(results[0]));
+            return ((UsuarioEntity)(results[0]));
         }
         
         /// <remarks/>
-        public void LoginAsync(string usuario, string contrasena) {
-            this.LoginAsync(usuario, contrasena, null);
+        public void LoginAsync(string nombreUsuario, string contrasena) {
+            this.LoginAsync(nombreUsuario, contrasena, null);
         }
         
         /// <remarks/>
-        public void LoginAsync(string usuario, string contrasena, object userState) {
+        public void LoginAsync(string nombreUsuario, string contrasena, object userState) {
             if ((this.LoginOperationCompleted == null)) {
                 this.LoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnLoginOperationCompleted);
             }
             this.InvokeAsync("Login", new object[] {
-                        usuario,
+                        nombreUsuario,
                         contrasena}, this.LoginOperationCompleted, userState);
         }
         
@@ -344,15 +344,19 @@ namespace FrontTestImaginamos.BackWebServices {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ProductoEntity {
+    public partial class UsuarioEntity {
         
         private long idField;
         
-        private decimal precioField;
+        private string nombreField;
         
-        private int cantidadField;
+        private string documentoField;
         
-        private string nombreProductoField;
+        private string emailField;
+        
+        private string contrasenaField;
+        
+        private string nombreUsuarioField;
         
         /// <remarks/>
         public long Id {
@@ -365,32 +369,52 @@ namespace FrontTestImaginamos.BackWebServices {
         }
         
         /// <remarks/>
-        public decimal Precio {
+        public string Nombre {
             get {
-                return this.precioField;
+                return this.nombreField;
             }
             set {
-                this.precioField = value;
+                this.nombreField = value;
             }
         }
         
         /// <remarks/>
-        public int Cantidad {
+        public string Documento {
             get {
-                return this.cantidadField;
+                return this.documentoField;
             }
             set {
-                this.cantidadField = value;
+                this.documentoField = value;
             }
         }
         
         /// <remarks/>
-        public string NombreProducto {
+        public string Email {
             get {
-                return this.nombreProductoField;
+                return this.emailField;
             }
             set {
-                this.nombreProductoField = value;
+                this.emailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Contrasena {
+            get {
+                return this.contrasenaField;
+            }
+            set {
+                this.contrasenaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NombreUsuario {
+            get {
+                return this.nombreUsuarioField;
+            }
+            set {
+                this.nombreUsuarioField = value;
             }
         }
     }
@@ -477,6 +501,63 @@ namespace FrontTestImaginamos.BackWebServices {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ProductoEntity {
+        
+        private long idField;
+        
+        private decimal precioField;
+        
+        private int cantidadField;
+        
+        private string nombreProductoField;
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal Precio {
+            get {
+                return this.precioField;
+            }
+            set {
+                this.precioField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int Cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                this.cantidadField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NombreProducto {
+            get {
+                return this.nombreProductoField;
+            }
+            set {
+                this.nombreProductoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void LoginCompletedEventHandler(object sender, LoginCompletedEventArgs e);
     
@@ -494,10 +575,10 @@ namespace FrontTestImaginamos.BackWebServices {
         }
         
         /// <remarks/>
-        public bool Result {
+        public UsuarioEntity Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((UsuarioEntity)(this.results[0]));
             }
         }
     }

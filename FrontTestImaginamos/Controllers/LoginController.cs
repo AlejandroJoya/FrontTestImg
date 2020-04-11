@@ -7,8 +7,14 @@ namespace FrontTestImaginamos.Controllers
     {
         private readonly BackWebServices.MainWebService webService = new BackWebServices.MainWebService();
         // GET: Login
+        [HttpGet]
         public ActionResult Index()
         {
+            if (Session["usuario"] != null)
+            {
+                return RedirectToAction("Index", "Producto");
+            }
+
             return View();
         }
 
@@ -20,14 +26,25 @@ namespace FrontTestImaginamos.Controllers
                 return View();
             }
 
-            bool esValido = webService.Login(login.Usuario, login.Contrasena);
+            var usuarioEncontrado = webService.Login(login.Usuario, login.Contrasena);
 
-            if (!esValido)
+            if (usuarioEncontrado.Id < 1)
             {
                 ModelState.AddModelError(string.Empty, Login.LOGIN_FALLIDO);
+                return View();
             }
 
-            return View();
+            Session["usuario"] = usuarioEncontrado;
+
+            return RedirectToAction("Index", "Producto");
+        }
+
+        [HttpGet]
+        public ActionResult Salir()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

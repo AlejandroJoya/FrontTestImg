@@ -11,6 +11,11 @@ namespace FrontTestImaginamos.Controllers
         // GET: Producto
         public ActionResult Index()
         {
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var listaProductos = webService.ListarProductos().ToList();
             return View(listaProductos);
         }
@@ -18,6 +23,11 @@ namespace FrontTestImaginamos.Controllers
         // GET: Producto/Create
         public ActionResult Create()
         {
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
@@ -48,6 +58,11 @@ namespace FrontTestImaginamos.Controllers
         {
             try
             {
+                if (Session["usuario"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
                 var producto = webService.ConsultarProducto(id);
                 return View(new Producto(producto));
             }
@@ -62,7 +77,8 @@ namespace FrontTestImaginamos.Controllers
         {
             try
             {
-                webService.AgregarProductoCarrito(1, producto.Id);
+                var usuario = (BackWebServices.UsuarioEntity)Session["usuario"];
+                webService.AgregarProductoCarrito(usuario.Id, producto.Id);
                 return RedirectToAction("Index", "Producto");
             }
             catch (Exception ex)
