@@ -1,19 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 
 namespace FrontTestImaginamos.Controllers
 {
     public class CarritoController : Controller
     {
+        private readonly BackWebServices.MainWebService webService = new BackWebServices.MainWebService();
         // GET: Carrito
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: Carrito/Create
-        public ActionResult Create()
-        {
-            return View();
+            var listaCarrito = webService.ListarCarrito(1).ToList();
+            return View(listaCarrito);
         }
     }
 }
