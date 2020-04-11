@@ -41,6 +41,8 @@ namespace FrontTestImaginamos.BackWebServices {
         
         private System.Threading.SendOrPostCallback ConsultarProductoOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ListarCarritoOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -98,26 +100,29 @@ namespace FrontTestImaginamos.BackWebServices {
         public event ConsultarProductoCompletedEventHandler ConsultarProductoCompleted;
         
         /// <remarks/>
+        public event ListarCarritoCompletedEventHandler ListarCarritoCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Login", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool Login(string usuario, string contrasena) {
+        public UsuarioEntity Login(string nombreUsuario, string contrasena) {
             object[] results = this.Invoke("Login", new object[] {
-                        usuario,
+                        nombreUsuario,
                         contrasena});
-            return ((bool)(results[0]));
+            return ((UsuarioEntity)(results[0]));
         }
         
         /// <remarks/>
-        public void LoginAsync(string usuario, string contrasena) {
-            this.LoginAsync(usuario, contrasena, null);
+        public void LoginAsync(string nombreUsuario, string contrasena) {
+            this.LoginAsync(nombreUsuario, contrasena, null);
         }
         
         /// <remarks/>
-        public void LoginAsync(string usuario, string contrasena, object userState) {
+        public void LoginAsync(string nombreUsuario, string contrasena, object userState) {
             if ((this.LoginOperationCompleted == null)) {
                 this.LoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnLoginOperationCompleted);
             }
             this.InvokeAsync("Login", new object[] {
-                        usuario,
+                        nombreUsuario,
                         contrasena}, this.LoginOperationCompleted, userState);
         }
         
@@ -286,6 +291,35 @@ namespace FrontTestImaginamos.BackWebServices {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ListarCarrito", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransaccionEntity[] ListarCarrito(long idUsuario) {
+            object[] results = this.Invoke("ListarCarrito", new object[] {
+                        idUsuario});
+            return ((TransaccionEntity[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ListarCarritoAsync(long idUsuario) {
+            this.ListarCarritoAsync(idUsuario, null);
+        }
+        
+        /// <remarks/>
+        public void ListarCarritoAsync(long idUsuario, object userState) {
+            if ((this.ListarCarritoOperationCompleted == null)) {
+                this.ListarCarritoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnListarCarritoOperationCompleted);
+            }
+            this.InvokeAsync("ListarCarrito", new object[] {
+                        idUsuario}, this.ListarCarritoOperationCompleted, userState);
+        }
+        
+        private void OnListarCarritoOperationCompleted(object arg) {
+            if ((this.ListarCarritoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ListarCarritoCompleted(this, new ListarCarritoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -301,6 +335,168 @@ namespace FrontTestImaginamos.BackWebServices {
                 return true;
             }
             return false;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UsuarioEntity {
+        
+        private long idField;
+        
+        private string nombreField;
+        
+        private string documentoField;
+        
+        private string emailField;
+        
+        private string contrasenaField;
+        
+        private string nombreUsuarioField;
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Nombre {
+            get {
+                return this.nombreField;
+            }
+            set {
+                this.nombreField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Documento {
+            get {
+                return this.documentoField;
+            }
+            set {
+                this.documentoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Contrasena {
+            get {
+                return this.contrasenaField;
+            }
+            set {
+                this.contrasenaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NombreUsuario {
+            get {
+                return this.nombreUsuarioField;
+            }
+            set {
+                this.nombreUsuarioField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class TransaccionEntity {
+        
+        private long idField;
+        
+        private long idUsuarioField;
+        
+        private long idProductoField;
+        
+        private System.DateTime fechaField;
+        
+        private string estadoField;
+        
+        private string nombreProductoField;
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long IdUsuario {
+            get {
+                return this.idUsuarioField;
+            }
+            set {
+                this.idUsuarioField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long IdProducto {
+            get {
+                return this.idProductoField;
+            }
+            set {
+                this.idProductoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                this.fechaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Estado {
+            get {
+                return this.estadoField;
+            }
+            set {
+                this.estadoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NombreProducto {
+            get {
+                return this.nombreProductoField;
+            }
+            set {
+                this.nombreProductoField = value;
+            }
         }
     }
     
@@ -379,10 +575,10 @@ namespace FrontTestImaginamos.BackWebServices {
         }
         
         /// <remarks/>
-        public bool Result {
+        public UsuarioEntity Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((UsuarioEntity)(this.results[0]));
             }
         }
     }
@@ -513,6 +709,32 @@ namespace FrontTestImaginamos.BackWebServices {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((ProductoEntity)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void ListarCarritoCompletedEventHandler(object sender, ListarCarritoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ListarCarritoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ListarCarritoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransaccionEntity[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransaccionEntity[])(this.results[0]));
             }
         }
     }

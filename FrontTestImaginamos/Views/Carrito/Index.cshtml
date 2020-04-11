@@ -1,0 +1,30 @@
+﻿@model IEnumerable<FrontTestImaginamos.BackWebServices.TransaccionEntity>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Productos en carrito</h2>
+@Html.ActionLink("Ir a Productos", "Index", "Producto")
+
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Producto
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProducto)
+            </td>
+        </tr>
+    }
+
+</table>

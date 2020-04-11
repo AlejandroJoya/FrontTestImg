@@ -128,6 +128,7 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\Producto\Detail.cshtml" />
+    <Content Include="Views\Carrito\Index.cshtml" />
     <None Include="Web References\BackWebServices\MainWebService.disco" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -166,6 +167,12 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Web References\BackWebServices\TransaccionEntity.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\BackWebServices\UsuarioEntity.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -175,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Carrito\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

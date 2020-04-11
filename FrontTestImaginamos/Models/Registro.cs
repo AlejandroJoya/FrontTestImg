@@ -4,6 +4,9 @@ namespace FrontTestImaginamos.Models
 {
     public class Registro
     {
+        public const string REGISTO_EXITOSO = "Registro exitoso";
+        public const string REGISTO_FALLIDO = "Registro fallido";
+
         [Required(ErrorMessage = "Ingrese su nombre")]
         [StringLength(50, ErrorMessage = "El nombre no debe superar los 50 caracteres")]
         public string Nombre { get; set; }

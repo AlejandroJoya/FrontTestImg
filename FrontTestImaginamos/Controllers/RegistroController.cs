@@ -1,4 +1,5 @@
 ﻿using FrontTestImaginamos.Models;
+using System;
 using System.Web.Mvc;
 
 namespace FrontTestImaginamos.Controllers
@@ -11,6 +12,11 @@ namespace FrontTestImaginamos.Controllers
         // GET: Registro/Create
         public ActionResult Create()
         {
+            if (Session["usuario"] != null)
+            {
+                return RedirectToAction("Index", "Producto");
+            }
+
             return View();
         }
 
@@ -20,22 +26,27 @@ namespace FrontTestImaginamos.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    webService.RegistrarUsuario(registro.Nombre, 
-                        registro.Documento, 
-                        registro.Email, 
-                        registro.NombreUsuario, 
-                        registro.Contrasena);
+                    return View();
                 }
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                webService.RegistrarUsuario(registro.Nombre,
+                    registro.Documento,
+                    registro.Email,
+                    registro.NombreUsuario,
+                    registro.Contrasena);
+
+                ViewBag.RegistroExitoso = true;
+
+                // TODO: Add insert logic here
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, Registro.REGISTO_FALLIDO + " - " + ex.Message);
             }
+
+            return View();
         }
     }
 }

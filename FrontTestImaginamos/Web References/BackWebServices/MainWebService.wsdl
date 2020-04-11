@@ -5,7 +5,7 @@
       <s:element name="Login">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreUsuario" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="contrasena" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -13,10 +13,20 @@
       <s:element name="LoginResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:UsuarioEntity" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="UsuarioEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contrasena" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreUsuario" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="RegistrarUsuario">
         <s:complexType>
           <s:sequence>
@@ -103,6 +113,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ListarCarrito">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarCarritoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarCarritoResult" type="tns:ArrayOfTransaccionEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransaccionEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransaccionEntity" nillable="true" type="tns:TransaccionEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransaccionEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProducto" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreProducto" type="s:string" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="LoginSoapIn">
@@ -141,6 +180,12 @@
   <wsdl:message name="ConsultarProductoSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultarProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="ListarCarritoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarCarrito" />
+  </wsdl:message>
+  <wsdl:message name="ListarCarritoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarCarritoResponse" />
+  </wsdl:message>
   <wsdl:portType name="MainWebServiceSoap">
     <wsdl:operation name="Login">
       <wsdl:input message="tns:LoginSoapIn" />
@@ -165,6 +210,10 @@
     <wsdl:operation name="ConsultarProducto">
       <wsdl:input message="tns:ConsultarProductoSoapIn" />
       <wsdl:output message="tns:ConsultarProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarCarrito">
+      <wsdl:input message="tns:ListarCarritoSoapIn" />
+      <wsdl:output message="tns:ListarCarritoSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="MainWebServiceSoap" type="tns:MainWebServiceSoap">
@@ -223,6 +272,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListarCarrito">
+      <soap:operation soapAction="http://tempuri.org/ListarCarrito" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="MainWebServiceSoap12" type="tns:MainWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -273,6 +331,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultarProducto">
       <soap12:operation soapAction="http://tempuri.org/ConsultarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarCarrito">
+      <soap12:operation soapAction="http://tempuri.org/ListarCarrito" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
